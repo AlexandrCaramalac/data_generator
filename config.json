@@ -1,0 +1,55 @@
+
+{
+  "seed": 42,
+  "start": "2026-10-05T00:00:00",
+  "duration_days": 14,
+  "users": ["alice", "bob", "carol"],
+  "services": ["mail", "vpn", "wifi"],
+  "events": ["login", "logout", "login_failed"],
+ 
+  "behavior": {
+    "alice": {
+      "mail": { "type": "random", "logins_per_day": 6 },
+      "vpn":  { "type": "random", "logins_per_day": 6 },
+      "wifi": { "type": "random", "logins_per_day": 6 }
+    },
+ 
+    "bob": {
+      "mail": {
+        "type": "pattern",
+        "hours": { "8-12": 0.6, "13-17": 0.4 },
+        "weekdays": [1, 1, 1, 1, 1, 0.05, 0.05],
+        "session_minutes": 15
+      },
+      "wifi": {
+        "type": "pattern",
+        "hours": { "8": 0.9 },
+        "weekdays": [1, 1, 1, 1, 1, 0, 0],
+        "session_minutes": 480
+      },
+      "vpn": {
+        "type": "pattern",
+        "hours": { "20-24": 0.2 },
+        "fail_probability": 0.1
+      }
+    },
+ 
+    "carol": {
+      "mail": {
+        "type": "normal",
+        "peaks": [
+          { "mean": "09:00", "std_minutes": 30, "probability": 0.9 },
+          { "mean": "13:30", "std_minutes": 20, "probability": 0.6 }
+        ],
+        "weekdays": [1, 1, 1, 1, 1, 0.1, 0.1],
+        "session_minutes": 20
+      },
+      "vpn": {
+        "type": "pattern",
+        "hours": { "22-24": 0.5, "0-3": 0.3 },
+        "weekdays": [1, 1, 1, 1, 1.5, 1.5, 1.5],
+        "session_minutes": 90
+      }
+    }
+  }
+}
